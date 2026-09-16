@@ -1,0 +1,27 @@
+rebuild_statistics: {}
+
+set_price:
+  fields:
+    month:
+      required: true
+      example: "2026-12"
+      selector:
+        text:
+    price:
+      required: true
+      example: 11.215
+      selector:
+        number:
+          min: -100
+          max: 100
+          step: 0.001
+          unit_of_measurement: "ct/kWh"
+          mode: box
+
+clear_price:
+  fields:
+    month:
+      required: true
+      example: "2026-12"
+      selector:
+        text:

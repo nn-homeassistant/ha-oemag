@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+  Synthetic stand-in for https://www.oem-ag.at/marktpreis/ - written for these tests,
+  not copied from the site. It mirrors the structural traits the parser has to cope
+  with, and nothing else:
+
+    * the year lives in a heading above the table, never in the table itself
+    * the photovoltaic column heading mentions "Windkraft" too ("außer Windkraft"),
+      so the wind column cannot be found by that word alone
+    * a <br> splits the heading, so cell text has to be joined with a separator
+    * a second table carries nearly the same CSS classes
+    * months with no price yet are present but empty
+
+  The prices are the figures OeMAG published for 2026 - facts, kept so the test says
+  something about the real world. If parsing ever breaks, re-check against the live
+  page with: pytest -m live
+-->
+<html lang="de">
+  <body>
+    <h2>Höhe des Marktpreises 2026</h2>
+    <p>Marktpreise 2026</p>
+
+    <table class="table-bordered table-hover table-striped">
+      <tr>
+        <th>Monat</th>
+        <th>Marktpreis Photovoltaik<br />und andere Energieträger<br />(außer Windkraft)</th>
+        <th>Marktpreis Windkraft</th>
+        <th>Rechtliche Grundlage</th>
+        <th>Kommentar</th>
+      </tr>
+      <tr><td>Jänner</td><td>8,842 ct/kWh</td><td>8,796 ct/kWh</td><td>§ 13 Abs. 3 iVm § 41 ÖSG</td><td></td></tr>
+      <tr><td>Februar</td><td>8,457 ct/kWh</td><td>8,411 ct/kWh</td><td>§ 13 Abs. 3 iVm § 41 ÖSG</td><td></td></tr>
+      <tr><td>März</td><td>5,720 ct/kWh</td><td>5,674 ct/kWh</td><td>§ 13 Abs. 3 iVm § 41 ÖSG</td><td></td></tr>
+      <tr><td>April</td><td>6,772 ct/kWh</td><td>6,726 ct/kWh</td><td>§ 13 Abs. 3 iVm § 41 ÖSG</td><td></td></tr>
+      <tr><td>Mai</td><td>6,772 ct/kWh</td><td>6,726 ct/kWh</td><td>§ 13 Abs. 3 iVm § 41 ÖSG</td><td></td></tr>
+      <tr><td>Juni</td><td>6,772 ct/kWh</td><td>6,726 ct/kWh</td><td>§ 13 Abs. 3 iVm § 41 ÖSG</td><td></td></tr>
+      <tr><td>Juli</td><td>6,146 ct/kWh</td><td>6,100 ct/kWh</td><td>§ 13 Abs. 3 iVm § 41 ÖSG</td><td></td></tr>
+      <tr><td>August</td><td>8,997 ct/kWh</td><td>8,951 ct/kWh</td><td>§ 13 Abs. 3 iVm § 41 ÖSG</td><td></td></tr>
+      <tr><td>September</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+
+    <h2>Antragstellung</h2>
+    <table class="table-striped table-bordered table-hover">
+      <tr><th>Fall 1</th><th>Fall 2</th></tr>
+      <tr><td>Schritt 1</td><td>Schritt 1</td></tr>
+      <tr><td>Schritt 2</td><td>Schritt 2</td></tr>
+    </table>
+  </body>
+</html>

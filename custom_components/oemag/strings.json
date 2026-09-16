@@ -1,0 +1,86 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "OeMAG Marktpreis",
+        "description": "The market price is scraped from oem-ag.at. Pick the sensor that counts the energy you feed into the grid - the compensation is calculated from it and written as a statistic you can select in the Energy Dashboard.",
+        "data": {
+          "energy_entity": "Grid export sensor",
+          "technology": "Technology"
+        },
+        "data_description": {
+          "energy_entity": "A total_increasing energy sensor. Wh and kWh both work.",
+          "technology": "OeMAG publishes a separate price for wind."
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "OeMAG Marktpreis is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "OeMAG Marktpreis",
+        "data": {
+          "energy_entity": "Grid export sensor",
+          "technology": "Technology"
+        }
+      }
+    }
+  },
+  "selector": {
+    "technology": {
+      "options": {
+        "pv": "Photovoltaic and other (except wind)",
+        "wind": "Wind"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "market_price": {
+        "name": "Market price"
+      },
+      "price_month": {
+        "name": "Price month"
+      },
+      "settled_through": {
+        "name": "Settled through"
+      },
+      "price_table": {
+        "name": "Price table"
+      }
+    }
+  },
+  "services": {
+    "rebuild_statistics": {
+      "name": "Rebuild compensation",
+      "description": "Recalculates the whole compensation history from the first recorded hour. Needed after OeMAG corrects an already published price, or to backfill once. Regular updates only touch the last two months."
+    },
+    "set_price": {
+      "name": "Set price",
+      "description": "Records a market price by hand and recalculates the compensation with it. Use it when the page leaves a gap - typically December, whose price is published in January, by which time the page may already show the new year's table.",
+      "fields": {
+        "month": {
+          "name": "Month",
+          "description": "The month the price is for, as YYYY-MM."
+        },
+        "price": {
+          "name": "Price",
+          "description": "In ct/kWh, exactly as the page states it."
+        }
+      }
+    },
+    "clear_price": {
+      "name": "Remove price",
+      "description": "Removes a price that was entered by hand and recalculates. Published prices are not affected.",
+      "fields": {
+        "month": {
+          "name": "Month",
+          "description": "The month to remove, as YYYY-MM."
+        }
+      }
+    }
+  }
+}

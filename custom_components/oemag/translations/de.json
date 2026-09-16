@@ -1,0 +1,86 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "OeMAG Marktpreis",
+        "description": "Der Marktpreis wird von oem-ag.at gelesen. Wähle den Sensor, der deine Einspeisung zählt - daraus wird die Vergütung berechnet und als Statistik geschrieben, die du im Energie-Dashboard auswählen kannst.",
+        "data": {
+          "energy_entity": "Einspeisesensor",
+          "technology": "Technologie"
+        },
+        "data_description": {
+          "energy_entity": "Ein Energiesensor mit state_class total_increasing. Wh und kWh funktionieren beide.",
+          "technology": "OeMAG veröffentlicht für Windkraft einen eigenen Preis."
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "OeMAG Marktpreis ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "OeMAG Marktpreis",
+        "data": {
+          "energy_entity": "Einspeisesensor",
+          "technology": "Technologie"
+        }
+      }
+    }
+  },
+  "selector": {
+    "technology": {
+      "options": {
+        "pv": "Photovoltaik und andere (außer Windkraft)",
+        "wind": "Windkraft"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "market_price": {
+        "name": "Marktpreis"
+      },
+      "price_month": {
+        "name": "Preismonat"
+      },
+      "settled_through": {
+        "name": "Endgültig bewertet bis"
+      },
+      "price_table": {
+        "name": "Preistabelle"
+      }
+    }
+  },
+  "services": {
+    "rebuild_statistics": {
+      "name": "Vergütung neu berechnen",
+      "description": "Berechnet die gesamte Vergütungshistorie ab der ersten aufgezeichneten Stunde neu. Nötig, wenn OeMAG einen bereits veröffentlichten Preis nachträglich korrigiert, oder für einen einmaligen Backfill. Die regulären Updates rühren nur die letzten zwei Monate an."
+    },
+    "set_price": {
+      "name": "Preis eintragen",
+      "description": "Trägt einen Marktpreis von Hand ein und berechnet die Vergütung damit neu. Für den Fall, dass die Seite eine Lücke lässt - typischerweise der Dezember, dessen Preis im Jänner veröffentlicht wird, wenn die Seite womöglich schon die Tabelle des neuen Jahres zeigt.",
+      "fields": {
+        "month": {
+          "name": "Monat",
+          "description": "Der Monat, für den der Preis gilt, als JJJJ-MM."
+        },
+        "price": {
+          "name": "Preis",
+          "description": "In ct/kWh, genau so wie ihn die Seite angibt."
+        }
+      }
+    },
+    "clear_price": {
+      "name": "Preis entfernen",
+      "description": "Entfernt einen von Hand eingetragenen Preis und berechnet neu. Veröffentlichte Preise bleiben unberührt.",
+      "fields": {
+        "month": {
+          "name": "Monat",
+          "description": "Der zu entfernende Monat, als JJJJ-MM."
+        }
+      }
+    }
+  }
+}
