@@ -65,11 +65,15 @@ and restart.
 
 ### Wiring it into the Energy Dashboard
 
-**Settings → Dashboards → Energy → Return to grid**, then set the compensation to
-**"Use a statistic"** and pick `oemag:grid_export_compensation`.
+**Settings → Dashboards → Energy → Grid → Export compensation**, then choose
+**"Use an entity tracking the total compensation"** and pick
+`oemag:grid_export_compensation`, which the picker shows as *OeMAG Einspeisevergütung*.
 
-Leave the *entity* and *fixed price* options empty. Those route through the built-in
-cost sensor, which is exactly the path that cannot be corrected.
+Mind the wording: despite saying *entity*, that option is backed by a statistic picker
+and is the right one. The neighbouring **"Use an entity with current rate"** sounds
+closer to what this integration provides but is the opposite — it routes through
+`EnergyCostSensor`, which is exactly the path that cannot be corrected retroactively.
+**"Use a static rate"** is wrong for the same reason.
 
 ## Entities
 
