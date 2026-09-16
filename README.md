@@ -94,15 +94,18 @@ content: |
   {% set t = state_attr('sensor.oemag_preistabelle', 'preise') or {} %}
   {% set manual = state_attr('sensor.oemag_preistabelle', 'manuell') or [] %}
   {% set prov = state_attr('sensor.oemag_preistabelle', 'vorlaeufig') or [] %}
-  | Monat | ct/kWh | |
+
+  ### OeMAG Marktpreise
+
+  | Monat | ct/kWh | Status |
   |---|---:|---|
-  {% for m in t | sort -%}
-  | {{ m }} | {{ t[m] }} | {{ '✏️' if m in manual }}{{ '⏳' if m in prov }} |
+  {% for m in t | sort %}| {{ m }} | {{ t[m] }} | {% if m in manual %}✏️ von Hand{% elif m in prov %}⏳ vorläufig{% else %}✓ endgültig{% endif %} |
   {% endfor %}
 ```
 
-✏️ marks a price you entered yourself, ⏳ one that is still provisional and will be
-rewritten when the published figure arrives.
+✏️ marks a price entered by hand, ⏳ one that is still provisional and will be rewritten
+when the published figure arrives. Note that the attributes carry ct/kWh, the way the
+page states them — `sensor.oemag_marktpreis` itself is in EUR/kWh.
 
 ## Services
 
