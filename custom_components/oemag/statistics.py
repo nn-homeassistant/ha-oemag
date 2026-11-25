@@ -186,6 +186,7 @@ class CompensationWriter:
                     name=STATISTIC_NAME,
                     source=DOMAIN,
                     statistic_id=STATISTIC_ID,
+                    unit_class=None,
                     unit_of_measurement=self.hass.config.currency,
                 ),
                 [StatisticData(start=row.start, sum=row.sum) for row in result.rows],
